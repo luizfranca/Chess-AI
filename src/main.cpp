@@ -1,13 +1,15 @@
 #include <iostream>
 #include "chess.h"
+#include "piece.h"
+#include "utils.h"
 
 using namespace std;
 
 int main() {
 
-	Pawn p;
-  
- 	cout << p.move(1, 2) << endl;
+	Chess c;
+
+	cout << c;
 
   return 0;
-}
+} 
