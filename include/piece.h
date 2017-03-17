@@ -23,27 +23,38 @@ public:
 };
 
 class Rook : public Piece {
-
+public:
+	Rook(Color color);
+	bool move(int x, int y);
 
 };
 
 class Knight : public Piece {
-
+public:
+	Knight(Color color);
+	bool move(int x, int y);
 
 };
 
 class Bishop : public Piece {
+public:
+	Bishop(Color color);
+	bool move(int x, int y);
 
 
 };
 
 class Queen : public Piece {
-
+public:
+	Queen(Color color);
+	bool move(int x, int y);
 
 };
 
 class King : public Piece {
-
+public:
+	King(Color color);
+	bool move(int x, int y);
 
 };
 
