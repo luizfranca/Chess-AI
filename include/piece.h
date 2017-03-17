@@ -6,9 +6,10 @@
 class Piece
 {
 public:
-	virtual bool move(int x, int y) = 0;
+	virtual bool isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) = 0;
 	Color getColor();
 	Type getType();
+	bool checkPath(int fromX, int fromY, int toX, int toY, Piece *board[8][8]);
 
 protected:
 	Color color;
@@ -18,28 +19,28 @@ protected:
 class Pawn : public Piece {
 public:
 	Pawn(Color color);
-	bool move(int x, int y);
+	bool isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]);
 
 };
 
 class Rook : public Piece {
 public:
 	Rook(Color color);
-	bool move(int x, int y);
+	bool isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]);
 
 };
 
 class Knight : public Piece {
 public:
 	Knight(Color color);
-	bool move(int x, int y);
+	bool isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]);
 
 };
 
 class Bishop : public Piece {
 public:
 	Bishop(Color color);
-	bool move(int x, int y);
+	bool isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]);
 
 
 };
@@ -47,15 +48,14 @@ public:
 class Queen : public Piece {
 public:
 	Queen(Color color);
-	bool move(int x, int y);
+	bool isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]);
 
 };
 
 class King : public Piece {
 public:
 	King(Color color);
-	bool move(int x, int y);
-
+	bool isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]);
 };
 
 #endif

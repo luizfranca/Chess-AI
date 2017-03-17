@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "piece.h"
 
 Color Piece::getColor() {
@@ -8,12 +9,34 @@ Type Piece::getType() {
 	return type;
 }
 
+bool Piece::checkPath(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
+	int x = fromX;
+	int y = fromY;
+	int xFactor = fromX < toX ? 1 : -1;
+	int yFactor = fromY < toY ? 1 : -1;
+
+	while (std::abs(x - toX) < 0 || std::abs(y - toY) < 0) {
+		if (board[x][y] == nullptr) {
+			return false;
+		}
+		if (fromX != toX) {
+			x += xFactor;
+		}
+		if (fromY != toY) {
+			y += yFactor;
+		}
+	}
+
+	return true;
+}
+
 Pawn::Pawn(Color color) {
 	this->color = color;
 	this->type = PAWN;
 }
 
-bool Pawn::move(int x, int y) {
+bool Pawn::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
+
 	return true;
 }
 
@@ -22,8 +45,16 @@ Rook::Rook(Color color) {
 	this->type = ROOK;
 }
 
-bool Rook::move(int x, int y) {
-	return true;
+bool Rook::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
+	if (fromX != toX && fromY != toY) {
+		return false;
+	} else if (board[toX][toY]->getColor() == this->color) {
+		return false;
+	} else if (this->checkPath(fromX, fromY, toX, toY, board)) {
+		return true;
+	}
+
+	return false;
 }
 
 Knight::Knight(Color color) {
@@ -31,7 +62,7 @@ Knight::Knight(Color color) {
 	this->type = KNIGHT;
 }
 
-bool Knight::move(int x, int y) {
+bool Knight::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
 	return true;
 }
 
@@ -40,7 +71,7 @@ Bishop::Bishop(Color color) {
 	this->type = BISHOP;
 }
 
-bool Bishop::move(int x, int y) {
+bool Bishop::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
 	return true;
 }
 
@@ -49,7 +80,7 @@ Queen::Queen(Color color) {
 	this->type = QUEEN;
 }
 
-bool Queen::move(int x, int y) {
+bool Queen::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
 	return true;
 }
 
@@ -58,6 +89,6 @@ King::King(Color color) {
 	this->type = KING;
 }
 
-bool King::move(int x, int y) {
+bool King::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
 	return true;
 }
