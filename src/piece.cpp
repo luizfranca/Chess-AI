@@ -17,7 +17,7 @@ bool Piece::checkPath(int fromX, int fromY, int toX, int toY, Piece *board[8][8]
 	int xFactor = fromX < toX ? 1 : -1;
 	int yFactor = fromY < toY ? 1 : -1;
 
-	while (abs(x - toX) < 0 || abs(y - toY) < 0) {
+	while (x != toX - xFactor || y != toY - yFactor) {
 		if (board[x][y] == nullptr) {
 			return false;
 		}
