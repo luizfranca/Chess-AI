@@ -1,6 +1,8 @@
 #include <cstdlib>
 #include "piece.h"
 
+using namespace std;
+
 Color Piece::getColor() {
 	return color;
 }
@@ -15,7 +17,7 @@ bool Piece::checkPath(int fromX, int fromY, int toX, int toY, Piece *board[8][8]
 	int xFactor = fromX < toX ? 1 : -1;
 	int yFactor = fromY < toY ? 1 : -1;
 
-	while (std::abs(x - toX) < 0 || std::abs(y - toY) < 0) {
+	while (abs(x - toX) < 0 || abs(y - toY) < 0) {
 		if (board[x][y] == nullptr) {
 			return false;
 		}
@@ -48,7 +50,7 @@ Rook::Rook(Color color) {
 bool Rook::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
 	if (fromX != toX && fromY != toY) {
 		return false;
-	} else if (board[toX][toY]->getColor() == this->color) {
+	} else if (board[toX][toY] != nullptr && board[toX][toY]->getColor() == this->color) {
 		return false;
 	} else if (this->checkPath(fromX, fromY, toX, toY, board)) {
 		return true;
@@ -72,7 +74,15 @@ Bishop::Bishop(Color color) {
 }
 
 bool Bishop::isValid(int fromX, int fromY, int toX, int toY, Piece *board[8][8]) {
-	return true;
+	if (abs(fromX - toX) != abs(fromY - toY)) {
+		return false;
+	} else if (board[toX][toY] != nullptr && board[toX][toY]->getColor() == this->color) {
+		return false;
+	} else if (this->checkPath(fromX, fromY, toX, toY, board)) {
+		return true;
+	}
+
+	return false;
 }
 
 Queen::Queen(Color color) {
